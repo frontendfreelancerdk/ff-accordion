@@ -1,0 +1,53 @@
+p{
+  margin: 0;
+}
+.myAccordion{
+  transition: height 0.5s ease;
+  margin: 5px;
+}
+.myAccordionBtn{
+  cursor: pointer;
+  background-color: #f6f6f6;
+  padding: 5px;
+  border-radius: 3px;
+  margin: 0;
+}
+.myAccordionContent{
+  list-style: none;
+  border: 1px solid rgba(0,0,0,.4);
+  border-top: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin: 0;
+}
+.ff-trigger-active{
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.ff-hover{
+  background-color: #ededed;
+}
+.ff-trigger-active{
+  background-color: lightseagreen;
+  color: white;
+}
+
+.chevron{
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  vertical-align: middle;
+  transform: rotate(-90deg);
+  background: url("../assets/chevron.svg");
+  transition: transform 0.5s ease;
+}
+.ff-trigger-active .chevron{
+  transform: rotate(0);
+}
+
+.someWrapper{
+  span{
+    padding: 0.5rem;
+    display: inline-block;
+  }
+}

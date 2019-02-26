@@ -133,6 +133,42 @@
           }
         }
       }
+    },
+    "ff-accordion": {
+      "root": "projects/ff-accordion",
+      "sourceRoot": "projects/ff-accordion/src",
+      "projectType": "library",
+      "prefix": "ff",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ff-accordion/tsconfig.lib.json",
+            "project": "projects/ff-accordion/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ff-accordion/src/test.ts",
+            "tsConfig": "projects/ff-accordion/tsconfig.spec.json",
+            "karmaConfig": "projects/ff-accordion/karma.conf.js",
+            "codeCoverage": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ff-accordion/tsconfig.lib.json",
+              "projects/ff-accordion/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ff-accordion-app"

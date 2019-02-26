@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ff-accordion": [
+        "dist/ff-accordion"
+      ],
+      "ff-accordion/*": [
+        "dist/ff-accordion/*"
+      ]
+    }
   }
 }

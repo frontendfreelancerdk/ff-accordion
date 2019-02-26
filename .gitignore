@@ -37,3 +37,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Coverage
+/projects/ff-lazyimg/coverage
+
+# Readme
+/projects/ff-lazyimg/README.md
