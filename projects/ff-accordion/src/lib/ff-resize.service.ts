@@ -1,12 +1,5 @@
 import {Injectable} from '@angular/core';
 
-interface ResizeEvent {
-  type: string;
-  previous: number | { height: number, width: number };
-  current: number | { height: number, width: number };
-  item: any;
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,17 +15,6 @@ export class FFResizeService {
       function (fn) {
         return window.setTimeout(fn, 20);
       };
-  }
-
-  getDeepSize(element) {
-/*    if (!element) {
-      return;
-    }
-    if (element.children) {
-      for (let i = 0, len = element.children.length; i < len; i++) {
-        this.getDeepSize(element.children[i]);
-      }
-    }*/
   }
 
   getScrollSize(element) {

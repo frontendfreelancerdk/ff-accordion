@@ -3,4 +3,5 @@
  */
 
 export * from './lib/ff-resize.service';
+export * from './lib/ff-accordion.directive';
 export * from './lib/ff-accordion.module';

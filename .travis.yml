@@ -16,3 +16,5 @@ deploy:
   on:
     tags: true
     branch: master
+  api_key:
+    secure: Uw5CWVCtmM/sX/VLDkyN44QrHLm/VogZx48A8GHUDFgoVbl+siDoRRvGgleDLEI6xXncjIflPSA88L83nIzSsfBQiWMshNbASKbb70719KcLqZa7/93yBufS2sv4aCfgs7eFod6DvHlcn51WYGoy7lRdOmCoQqX97c7swR3H0raOT/XqWU0sIChFxWVw+bwuLK0OAME0Bfe/E7+avWZWjWjV/6SSghItUI2iiGkCAmNGk/y/n2SMu2m/NDs6qlR5Hsvupe5ESK6tlmj/QSMyuDfmc2N6d7kgdZpdWpunjbgHoDgSD4HvelGR2laFyjNpfPTGsc0Bi/MvgiTgpjhasIeypgjj96HGUk8ML0bWMQeeN+swfNn3nXw3+qDf3jH4QGonZqmsXQZnRV2NrBcKZhOjrFX0/1MgOrT9x/cZuQ59f4xboA0jW+uXAsxCQNlZeOVJxwBnc5qh1pdZNS97tHU0HiFwaqY+tTr1bzLr1G924u++yK1vpKOtnA3t2+KIPx2hKkg99Gg6c2ZiB37Kv1a743OXo7DR6bGBpa33rUI8/+JjQPQmCUvB1tq+DPPU2r5+GUyLnUpar1si6d9sHt4mqKegO+SEQh5v0kBo6G4UCPdMzowlbSGUcjOlovt4iBHt39QmkWrXUJGXRBo4xSo+Gr2c0XDBKqLO1dr1zNA=

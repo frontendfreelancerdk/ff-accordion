@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FFResizeService} from './ff-resize.service';
 import {FFAccordionDirective} from './ff-accordion.directive';
 
@@ -8,4 +8,5 @@ import {FFAccordionDirective} from './ff-accordion.directive';
   exports: [FFAccordionDirective],
   providers: [FFResizeService]
 })
-export class FfAccordionModule { }
+export class FFAccordionModule {
+}

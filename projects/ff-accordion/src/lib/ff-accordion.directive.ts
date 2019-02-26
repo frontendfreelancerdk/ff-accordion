@@ -5,7 +5,7 @@ import {
   Input, Output,
   OnInit, OnDestroy,
   NgZone,
-  Renderer2, ChangeDetectorRef, ContentChild, HostListener
+  Renderer2, ChangeDetectorRef, ContentChild
 } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {FFResizeService} from './ff-resize.service';
@@ -18,22 +18,22 @@ import {FFResizeService} from './ff-resize.service';
 export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
   private expand = new BehaviorSubject<boolean>(false);
   private _handler: () => void;
-  private _opened: boolean = false;
+  private _opened = false;
   private listenMouseover: Function;
   private listenMouseout: Function;
   private listenClick: Function;
 
-  get opened(): boolean {
+  get opened() {
     return this._opened;
   }
 
   @Input('ffAccordion')
-  set opened(val: boolean) {
+  set opened(val) {
     this._opened = val;
     this.expand.next(this.opened);
   }
 
-  @Input() disabled: boolean = false;
+  @Input() disabled = false;
 
   @Output() expanded: EventEmitter<Boolean> = new EventEmitter();
   @Output() collapsed: EventEmitter<Boolean> = new EventEmitter();
@@ -62,16 +62,6 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
     return Math.ceil(element.offsetHeight + margin);
   }
 
-  private getWidth(element) {
-    if (!element) {
-      return 0;
-    }
-    const styles = window.getComputedStyle(element);
-    const margin = parseFloat(styles['marginRight']) + parseFloat(styles['marginLeft']);
-
-    return Math.ceil(element.offsetWidth + margin);
-  }
-
   public toggle = () => {
     if (this.disabled) {
       return;
@@ -84,10 +74,10 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
       this.collapsed.emit(this.opened);
     }
     this.setHeight();
-  };
+  }
 
   private setListener() {
-    this.service.addElemet(this.hostEl, (item) => {
+    this.service.addElemet(this.hostEl, () => {
       this._resizeListener.next(1);
     });
   }
@@ -96,13 +86,7 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
     if (!this.opened) {
       this.renderer.setStyle(this.hostEl, 'height', `${this.getHeight(this.trigger)}px`);
     } else {
-      const height = this.hostEl.scrollHeight;
-      /* const length = this.hostEl.children.length;
-
-         for (let i = 0; i < length; i++) {
-             height += this.getHeight(this.hostEl.children[i]);
-           }*/
-      this.renderer.setStyle(this.hostEl, 'height', `${height}px`);
+      this.renderer.setStyle(this.hostEl, 'height', `${this.hostEl.scrollHeight}px`);
     }
     this.classExpanded = this.opened;
   }
@@ -153,7 +137,7 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
       flag ? this.renderer.addClass(this.trigger, 'ff-trigger-active') : this.renderer.removeClass(this.trigger, 'ff-trigger-active');
       this.setHeight();
     });
-    this._resizeListener.subscribe((h) => {
+    this._resizeListener.subscribe(() => {
       this.setHeight();
     });
     this.setListener();
