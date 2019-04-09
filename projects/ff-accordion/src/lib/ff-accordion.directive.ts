@@ -5,10 +5,11 @@ import {
   Input, Output,
   OnInit, OnDestroy,
   NgZone,
-  Renderer2, ChangeDetectorRef, ContentChild
+  Renderer2, ChangeDetectorRef, ContentChild, Inject, PLATFORM_ID
 } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {FFResizeService} from './ff-resize.service';
+import {isPlatformBrowser} from '@angular/common';
 
 
 @Directive({
@@ -49,11 +50,12 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
               private _ngZone: NgZone,
               private renderer: Renderer2,
               private cdr: ChangeDetectorRef,
-              private service: FFResizeService) {
+              private service: FFResizeService,
+              @Inject(PLATFORM_ID) private platformId: any) {
   }
 
   private getHeight(element) {
-    if (!element) {
+    if (!element || !isPlatformBrowser(this.platformId)) {
       return 0;
     }
     const styles = window.getComputedStyle(element);
@@ -74,7 +76,7 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
       this.collapsed.emit(this.opened);
     }
     this.setHeight();
-  }
+  };
 
   private setListener() {
     this.service.addElemet(this.hostEl, () => {
@@ -108,39 +110,44 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.service.removeElement(this.hostEl);
-    this.listenClick();
-    this.listenMouseout();
-    this.listenMouseover();
+    if (isPlatformBrowser(this.platformId)) {
+      this.service.removeElement(this.hostEl);
+      typeof this.listenClick === 'function' && this.listenClick();
+      typeof this.listenMouseout === 'function' && this.listenMouseout();
+      typeof this.listenMouseover === 'function' && this.listenMouseover();
+    }
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.hostEl = this.el.nativeElement;
-    const styles = window.getComputedStyle(this.hostEl);
-    const display = styles['display'];
-    const direction = styles['flexDirection'];
-    const alignItems = styles['alignItems'];
-    if ((display === 'flex' || display === 'inline-flex') && (alignItems === 'normal' || alignItems === 'stretch')) {
-      throw new Error('Css property align-items must not be "normal" (as default) or "stretch" at the flex element');
-    }
-    if ((display === 'flex' || display === 'inline-flex') && (direction === 'column' || direction === 'column-reverse')) {
-      throw new Error('Css property flex-direction must not be "column" or "column-reverse" at the flex element');
+    if (isPlatformBrowser(this.platformId) && window && typeof window.getComputedStyle === 'function') {
+      this.hostEl = this.el.nativeElement;
+      const styles = window.getComputedStyle(this.hostEl);
+      const display = styles['display'];
+      const direction = styles['flexDirection'];
+      const alignItems = styles['alignItems'];
+      if ((display === 'flex' || display === 'inline-flex') && (alignItems === 'normal' || alignItems === 'stretch')) {
+        throw new Error('Css property align-items must not be "normal" (as default) or "stretch" at the flex element');
+      }
+      if ((display === 'flex' || display === 'inline-flex') && (direction === 'column' || direction === 'column-reverse')) {
+        throw new Error('Css property flex-direction must not be "column" or "column-reverse" at the flex element');
+      }
+
+      this.renderer.setStyle(this.hostEl, 'overflow', 'hidden');
+      this._scrollHeight = this.hostEl.scrollHeight;
+      this.init();
+      this.expand.subscribe(flag => {
+        flag ? this.renderer.addClass(this.trigger, 'ff-trigger-active') : this.renderer.removeClass(this.trigger, 'ff-trigger-active');
+        this.setHeight();
+      });
+      this._resizeListener.subscribe(() => {
+        this.setHeight();
+      });
+      this.setListener();
+      this.cdr.detectChanges();
     }
 
-    this.renderer.setStyle(this.hostEl, 'overflow', 'hidden');
-    this._scrollHeight = this.hostEl.scrollHeight;
-    this.init();
-    this.expand.subscribe(flag => {
-      flag ? this.renderer.addClass(this.trigger, 'ff-trigger-active') : this.renderer.removeClass(this.trigger, 'ff-trigger-active');
-      this.setHeight();
-    });
-    this._resizeListener.subscribe(() => {
-      this.setHeight();
-    });
-    this.setListener();
-    this.cdr.detectChanges();
   }
 }

@@ -1,4 +1,5 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,15 @@ export class FFResizeService {
   requestAnimationFrame;
   elements: any[] = [];
 
-  constructor() {
-    this.requestAnimationFrame = window.requestAnimationFrame ||
-      (window as any).mozRequestAnimationFrame ||
-      (window as any).webkitRequestAnimationFrame ||
-      function (fn) {
-        return window.setTimeout(fn, 20);
-      };
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.requestAnimationFrame = window.requestAnimationFrame ||
+        (window as any).mozRequestAnimationFrame ||
+        (window as any).webkitRequestAnimationFrame ||
+        function (fn) {
+          return window.setTimeout(fn, 20);
+        };
+    }
   }
 
   getScrollSize(element) {
@@ -28,7 +31,7 @@ export class FFResizeService {
   }
 
   getElementSize(element) {
-    if (!element) {
+    if (!element || !isPlatformBrowser(this.platformId)) {
       return;
     }
     if (!element.getBoundingClientRect) {
@@ -71,23 +74,25 @@ export class FFResizeService {
 
 
   start() {
-    this.requestAnimationFrame(() => {
-      if (!this.elements.length) {
-        this._listening = false;
-        return;
-      }
-      this._listening = true;
-      for (let i = 0, len = this.elements.length; i < len; i++) {
-        const newSizes = this.elements[i].scroll ? this.getScrollSize(this.elements[i].element) : this.getElementSize(this.elements[i].element);
-        const previousSize = Object.assign({}, this.elements[i].size);
-        const type = this.checkDifference(previousSize, newSizes);
-        if (type !== 'none') {
-          this.elements[i].size = newSizes;
-          this.elements[i].callback({type, previous: previousSize, current: newSizes, item: this.elements[i]});
+    if (isPlatformBrowser(this.platformId)) {
+      this.requestAnimationFrame(() => {
+        if (!this.elements.length) {
+          this._listening = false;
+          return;
         }
-      }
-      this.start();
-    });
+        this._listening = true;
+        for (let i = 0, len = this.elements.length; i < len; i++) {
+          const newSizes = this.elements[i].scroll ? this.getScrollSize(this.elements[i].element) : this.getElementSize(this.elements[i].element);
+          const previousSize = Object.assign({}, this.elements[i].size);
+          const type = this.checkDifference(previousSize, newSizes);
+          if (type !== 'none') {
+            this.elements[i].size = newSizes;
+            this.elements[i].callback({type, previous: previousSize, current: newSizes, item: this.elements[i]});
+          }
+        }
+        this.start();
+      });
+    }
   }
 
   checkDifference(previous, current) {

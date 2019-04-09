@@ -21,7 +21,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-// Import your library
+// Import library
 import {FfAccordionModule} from 'ff-accordion';
 
 @NgModule({
@@ -30,7 +30,7 @@ import {FfAccordionModule} from 'ff-accordion';
   ],
   imports: [
     BrowserModule,
-    // Specify your library as an import
+    // Specify library as an import
     FfAccordionModule
   ],
   providers: [],
@@ -143,12 +143,12 @@ Exported as: `ffAccordion`
  /* Your styles for accordion wrapper, e.g margin */
  /* HINT! it must not be with property flex-direction: column 
  and align-items: stretch (or normal)*/
-  /* HINT! For transition add css property transition for height*/
+ /* HINT! For transition add css property transition for height*/
   transition: height 0.5s ease;
 }
 
 .myAccordionBtn{
- /* Your styles for accordion trigger, e.g color, font size, background, ect... */
+ /* Your styles for accordion trigger, e.g color, font size, background, ect.*/
 }
 
 .myAccordionContent{
@@ -163,9 +163,10 @@ Exported as: `ffAccordion`
   <div class="someWrapper">
     <span>Lorem</span>
     <span>Ipsum</span>
-    <!-- HINT! Now click on first child (div.someWrapper) won't call toggle() method.
-    Instead it will be called by click on element with template variable #trigger inside 
-    your accordion -->
+    <!-- HINT! 
+    Now click on first child (div.someWrapper) won't call toggle() method.
+    Instead it will be called by click on element with template variable
+    #trigger inside your accordion -->
     <span class="myAccordionBtn" #trigger>Trigger</span>
   </div>
   <ul class="myAccordionContent">
@@ -179,6 +180,8 @@ Exported as: `ffAccordion`
 
 ### toggle() method
 Export directive to template variable then use it where you need
+
+`html`
 ```html
 <div ffAccordion #myVar="ffAccordion" class="myAccordion">
   <p class="myAccordionBtn"><span class="chevron"></span> Trigger </p>
@@ -194,14 +197,16 @@ Export directive to template variable then use it where you need
 ``` 
 
 ### Multiple accordion
+`html`
 ```html
 <div [ffAccordion]="index === 0" class="myAccordion" [disabled]="index === 0"
      (expanded)="index=0">
   <p class="myAccordionBtn"><span class="chevron"></span> Multiple accordion 1</p>
   <div class="myAccordionContent">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam architecto asperiores autem dicta
-      omnis perferendis quisquam voluptatum. Ab at cum debitis dolores explicabo fugit nam quibusdam rem tempora,
-      voluptatibus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+       aliquam architecto asperiores autem dicta omnis perferendis quisquam
+       voluptatum. Ab at cum debitis dolores explicabo fugit nam quibusdam rem 
+       tempora, voluptatibus?</p>
   </div>
 </div>
 
@@ -209,9 +214,10 @@ Export directive to template variable then use it where you need
      (expanded)="index=1">
   <p class="myAccordionBtn"><span class="chevron"></span> Multiple accordion 2 </p>
   <div class="myAccordionContent">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam architecto asperiores autem dicta
-      omnis perferendis quisquam voluptatum. Ab at cum debitis dolores explicabo fugit nam quibusdam rem tempora,
-      voluptatibus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+       aliquam architecto asperiores autemv dicta omnis perferendis quisquam 
+       voluptatum. Ab at cum debitis dolores explicabo fugit nam quibusdam rem 
+       tempora, voluptatibus?</p>
   </div>
 </div>
 
@@ -219,20 +225,21 @@ Export directive to template variable then use it where you need
      (expanded)="index=2">
   <div class="myAccordionBtn"><span class="chevron"></span> Multiple accordion 3</div>
   <div class="myAccordionContent">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam architecto asperiores autem dicta
-      omnis perferendis quisquam voluptatum. Ab at cum debitis dolores explicabo fugit nam quibusdam rem tempora,
-      voluptatibus?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+       aliquam architecto asperiores autem dicta omnis perferendis quisquam 
+       voluptatum. Ab at cum debitis dolores explicabo fugit nam quibusdam rem 
+       tempora, voluptatibus?</p>
   </div>
 </div>
 ```
-
+`typescript`
 ```typescript
 import ...
 
 @Component({
   ...
 })
-export class AppComponent {
+export class YourComponent {
   index = 0;
 }
 ```
