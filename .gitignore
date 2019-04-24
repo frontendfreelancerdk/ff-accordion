@@ -38,8 +38,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Coverage
-/projects/ff-lazyimg/coverage
-
 # Readme
-/projects/ff-lazyimg/README.md
+/projects/ff-accordion/README.md
