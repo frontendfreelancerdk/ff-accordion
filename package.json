@@ -1,6 +1,6 @@
 {
   "name": "ff-accordion-app",
-  "version": "0.0.2",
+  "version": "8.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,8 @@
     "e2e": "ng e2e",
     "test_lib": "ng test ff-accordion --watch=false --browsers=ChromeHeadless",
     "build_lib": "ng build ff-accordion",
-    "prebuild_lib": "node copy_readme"
+    "prebuild_lib": "node copy_readme",
+    "watch_lib": "ng build ff-accordion --watch"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +24,7 @@
     "@angular/platform-browser-dynamic": "~8.2.8",
     "@angular/router": "~8.2.8",
     "core-js": "^2.5.4",
-    "ff-overlay": "^0.0.5",
+    "ff-overlay": "^8.0.0",
     "rxjs": "~6.5.3",
     "zone.js": "~0.9.1"
   },

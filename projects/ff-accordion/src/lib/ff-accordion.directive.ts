@@ -38,7 +38,7 @@ export class FFAccordionDirective implements AfterViewInit, OnInit, OnDestroy {
 
   @Output() expanded: EventEmitter<Boolean> = new EventEmitter();
   @Output() collapsed: EventEmitter<Boolean> = new EventEmitter();
-  @ContentChild('trigger') private _trigger;
+  @ContentChild('trigger', {static: false}) private _trigger;
   @HostBinding('class.ff-expanded') private classExpanded = this.opened;
 
   private _resizeListener: BehaviorSubject<number> = new BehaviorSubject(0);

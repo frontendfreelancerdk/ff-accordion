@@ -1,8 +1,8 @@
 {
   "name": "ff-accordion",
-  "version": "0.0.2",
+  "version": "8.0.0",
   "dependencies": {
-    "ff-overlay": "^0.0.5"
+    "ff-overlay": "^8.0.0"
   },
   "peerDependencies": {
     "@angular/common": "~8.2.8",

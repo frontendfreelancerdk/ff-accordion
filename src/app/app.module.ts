@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import {FfAccordionModule} from 'ff-accordion';
+import {AppComponent} from './app.component';
+import {FFAccordionModule} from 'ff-accordion';
 
 @NgModule({
   declarations: [
@@ -10,9 +10,10 @@ import {FfAccordionModule} from 'ff-accordion';
   ],
   imports: [
     BrowserModule,
-    FfAccordionModule
+    FFAccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -51,8 +51,9 @@ export class FFResizeService {
   addElemet(element, callback, scroll = false, deep = false) {
     for (let i = 0, len = this.elements.length; i < len; i++) {
       if (this.elements[i] && this.elements[i].element === element) {
-        if (this.elements[i].callback.toString() === callback.toString()) {
+        if (this.elements[i].callback.toString() !== callback.toString()) {
           this.elements[i].callback = callback;
+          return;
         } else {
           return;
         }
